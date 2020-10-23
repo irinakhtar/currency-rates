@@ -25,27 +25,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        updateTotalCurrency(1)
+        updateTotalCurrency(0)
         input_euro.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
+                Log.d("afterTextChanged", s.toString())
+                if(s.isEmpty()) {
+                    input_euro.setHint("0")
+                    updateTotalCurrency(0)
+                }
+                else {
+                    updateTotalCurrency(Integer.parseInt(s.toString()))
+                }
             }
 
-            override fun beforeTextChanged(s: CharSequence, start: Int,
-                                           count: Int, after: Int) {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                Log.d("beforeTextChanged", s.toString())
             }
 
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
-                if(s.length==0)
-                {
-                    input_euro.setText("");
-                    updateTotalCurrency(1)
-                }
-                else {
                     Log.d("onTextChanged", s.toString())
-                    updateTotalCurrency(Integer.parseInt(s.toString()))
-                }
             }
         })
     }

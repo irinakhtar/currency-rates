@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CurrencyRates</string>
     <string name="access_key">b0b549cd3a0d4ceded24b24601180403</string>
-    <string name="symbols">EUR,JPY,GBP,AUD,CAD,CHF,CNY,SEK,NZD</string>
+    <string name="symbols">JPY,GBP,AUD,CAD,CHF,CNY,SEK,NZD</string>
     <string name="currency_euro_title">Euro</string>
     <string name="currency_australian_dollar_title">Australian Dollar</string>
     <string name="currency_bulgarian_lev_title">Bulgarian Lev</string>
