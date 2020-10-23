@@ -5,7 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface CurrencyApiEndPoint {
+interface CurrencyApiService {
 
     @GET("/api/latest")
     fun getCurrencyResponce(@Query("access_key") access_key: String,

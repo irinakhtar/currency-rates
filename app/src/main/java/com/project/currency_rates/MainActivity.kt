@@ -8,11 +8,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.currency_rates.model.CurrencyResponce
-import com.project.currency_rates.model.Rate
-import com.project.currency_rates.service.CurrencyApiEndPoint
+import com.project.currency_rates.service.CurrencyApiService
 import com.project.currency_rates.service.ServiceBuilder
 import com.project.currency_rates.ui.RecyclerAdapter
-import com.project.currency_rates.util.Converter
 import com.project.currency_rates.util.Converter.serializeToMap
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -20,8 +18,11 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    val request = ServiceBuilder.buildService(CurrencyApiEndPoint::class.java)
+    val request = ServiceBuilder.buildService(CurrencyApiService::class.java)
 
+    /**
+     *
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,6 +51,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     *
+     */
     fun updateTotalCurrency(multiplier: Int) {
         val call = request.getCurrencyResponce(getString(R.string.access_key), getString(R.string.symbols))
         call.enqueue(object : Callback<CurrencyResponce>{

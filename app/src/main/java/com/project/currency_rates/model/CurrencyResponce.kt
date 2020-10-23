@@ -7,6 +7,7 @@ data class CurrencyResponce(
     val date: String,
     val rates: Rate
 )
+
 data class Rate(
     val EUR: Double,
     val JPY: Double,

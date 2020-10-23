@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.project.currency_rates.R
-import com.project.currency_rates.model.Rate
 
 class RecyclerAdapter(val currency: List<String>, val rate: List<Double>): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
