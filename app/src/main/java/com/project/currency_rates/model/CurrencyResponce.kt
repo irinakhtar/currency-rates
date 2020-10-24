@@ -1,21 +1,21 @@
 package com.project.currency_rates.model
 
 data class CurrencyResponce(
-    val success: Boolean,
-    val timestamp: Int,
-    val base: String,
-    val date: String,
-    val rates: Rate
+    var success: Boolean,
+    var timestamp: Int,
+    var base: String,
+    var date: String,
+    var rates: Rate
 )
 
 data class Rate(
-    val EUR: Double,
-    val JPY: Double,
-    val GBP: Double,
-    val AUD: Double,
-    val CAD: Double,
-    val CHF: Double,
-    val CNY: Double,
-    val SEK: Double,
-    val NZD: Double
+    var EUR: Double,
+    var JPY: Double,
+    var GBP: Double,
+    var AUD: Double,
+    var CAD: Double,
+    var CHF: Double,
+    var CNY: Double,
+    var SEK: Double,
+    var NZD: Double
 )
