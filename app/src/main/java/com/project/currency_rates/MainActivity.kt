@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.currency_rates.model.CurrencyResponce
+import com.project.currency_rates.model.Rate
 import com.project.currency_rates.service.CurrencyApiService
 import com.project.currency_rates.service.ServiceBuilder
 import com.project.currency_rates.ui.RecyclerAdapter
@@ -35,7 +36,7 @@ class MainActivity : Activity() {
                     updateTotalCurrency(0)
                 }
                 else {
-                    updateTotalCurrency(Integer.parseInt(s.toString()))
+                    updateTotalCurrency(s.toString().toLong())
                 }
             }
 
@@ -53,27 +54,20 @@ class MainActivity : Activity() {
     /**
      *
      */
-    fun updateTotalCurrency(multiplier: Int) {
+    fun updateTotalCurrency(multiplier: Long) {
         val call = request.getCurrencyResponce(getString(R.string.access_key), getString(R.string.symbols))
         call.enqueue(object : Callback<CurrencyResponce>{
             override fun onResponse(call: Call<CurrencyResponce>, response: Response<CurrencyResponce>) {
                 if (response.isSuccessful){
                     Log.d("Responce", response.message())
-                    val rate = response.body()!!.rates
-                    var currencyrate = ArrayList<Double>()
-                    val currencies = getString(R.string.symbols).split(",")
-                    val rateObjectToMap = rate.serializeToMap()
-                    for(currency in currencies) {
-                        val rate: Double = rateObjectToMap.get(currency) as Double
-                        currencyrate.add(rate* multiplier)
-                    }
-//                    convertRatesObjectToArray(rate, currencies, multiplier)
+                    val currencyList = getString(R.string.symbols).split(",")
+                    val rates = response.body()!!.rates
+                    val currencyRateList = convertRatesObjectToArray(rates, currencyList, multiplier)
                     rvCurrencyList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
-                        adapter = RecyclerAdapter(currencies, currencyrate)
+                        adapter = RecyclerAdapter(currencyList, currencyRateList)
                     }
-
                 }
             }
             override fun onFailure(call: Call<CurrencyResponce>, t: Throwable) {
@@ -82,11 +76,14 @@ class MainActivity : Activity() {
             }
         })
     }
-//    fun convertRatesObjectToArray(rate: Rate, currencies: List<String> ,multiplier: Int){
-//        val rateObjectToMap = rate.serializeToMap()
-//        for(currency in currencies) {
-//            val rate: Double = rateObjectToMap.get(currency) as Double
-//            currencyrate.add(rate* multiplier)
-//        }
-//    }
+
+    fun convertRatesObjectToArray(rates: Rate, currencies: List<String>, multiplier: Long) : ArrayList<Double>{
+        var rateList = ArrayList<Double>()
+        val rateObjectToMap = rates.serializeToMap()
+        for(currency in currencies) {
+            val rate: Double = rateObjectToMap.get(currency) as Double
+            rateList.add(rate* multiplier)
+        }
+        return rateList
+    }
 }
