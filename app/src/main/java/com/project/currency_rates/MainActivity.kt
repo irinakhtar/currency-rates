@@ -1,6 +1,6 @@
 package com.project.currency_rates
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,9 +17,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
     val request = ServiceBuilder.buildService(CurrencyApiService::class.java)
-
     /**
      *
      */
@@ -27,12 +26,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         updateTotalCurrency(0)
-        input_euro.addTextChangedListener(object : TextWatcher {
+        etBaseCurrency.addTextChangedListener(object : TextWatcher {
 
             override fun afterTextChanged(s: Editable) {
                 Log.d("afterTextChanged", s.toString())
                 if(s.isEmpty()) {
-                    input_euro.setHint("0")
+                    etBaseCurrency.setHint("0")
                     updateTotalCurrency(0)
                 }
                 else {
@@ -60,15 +59,16 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<CurrencyResponce>, response: Response<CurrencyResponce>) {
                 if (response.isSuccessful){
                     Log.d("Responce", response.message())
-                    val currencies = getString(R.string.symbols).split(",")
                     val rate = response.body()!!.rates
-                    val rateObjectToMap = rate.serializeToMap()
                     var currencyrate = ArrayList<Double>()
+                    val currencies = getString(R.string.symbols).split(",")
+                    val rateObjectToMap = rate.serializeToMap()
                     for(currency in currencies) {
                         val rate: Double = rateObjectToMap.get(currency) as Double
                         currencyrate.add(rate* multiplier)
                     }
-                    recyclerView.apply {
+//                    convertRatesObjectToArray(rate, currencies, multiplier)
+                    rvCurrencyList.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(this@MainActivity)
                         adapter = RecyclerAdapter(currencies, currencyrate)
@@ -82,4 +82,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+//    fun convertRatesObjectToArray(rate: Rate, currencies: List<String> ,multiplier: Int){
+//        val rateObjectToMap = rate.serializeToMap()
+//        for(currency in currencies) {
+//            val rate: Double = rateObjectToMap.get(currency) as Double
+//            currencyrate.add(rate* multiplier)
+//        }
+//    }
 }

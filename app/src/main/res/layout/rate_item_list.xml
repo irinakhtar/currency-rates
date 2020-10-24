@@ -14,9 +14,7 @@
             android:layout_marginStart="@dimen/dimen_16dp"
             android:layout_marginTop="@dimen/dimen_16dp"
             android:layout_marginBottom="@dimen/dimen_16dp"
-            android:background="@drawable/shape_oval"
             android:backgroundTint="@color/colorPrimaryDark"
-            android:contentDescription="@string/flag_image_content_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
             android:maxEms="6"
             android:maxLines="1"
             android:textColor="@color/colorBlack"
@@ -50,15 +48,15 @@
             app:layout_constraintTop_toBottomOf="@+id/tvCurrencyShortName" />
 
         <TextView
-            android:id="@+id/rateText"
+            android:id="@+id/tvRateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dimen_16dp"
             android:clickable="false"
             android:enabled="false"
-            android:hint="@string/edit_text_hint"
-            android:inputType="numberDecimal"
+            android:hint="@string/minimum_currency_hint"
             android:maxEms="7"
+            android:inputType="numberDecimal"
             android:maxLength="@integer/edit_text_max_length"
             android:minEms="2"
             android:textAlignment="textEnd"
