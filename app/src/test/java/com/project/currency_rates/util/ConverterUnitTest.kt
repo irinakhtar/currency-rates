@@ -1,6 +1,6 @@
 package com.project.currency_rates.util
 import com.project.currency_rates.model.Rate
-import com.project.currency_rates.util.Converter.serializeToMap
+import com.project.currency_rates.util.Utils.serializeToMap
 import org.junit.Test
 import org.junit.Assert.*
 
